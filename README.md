@@ -38,4 +38,32 @@ npm run build
 npm run start (in a seperate bash window)
 ```
 
-wes is the best
+## RESTful CRUD API
+
+### CREATE a listing
+app.post('/api/dblistings')
+Creates a new listing with provided data
+
+app.post('/api/dbbookeddates')
+Creates booked dates data for listing
+
+### READ/RETRIEVE a listing
+app.get('/api/dblistings?listing=:id')
+Gets listing from database with given id
+
+app.get('/api/dbbookeddates?listing=:id')
+Gets booked dates from database with given id
+
+### UPDATE a listing
+app.put('/api/dblistings?listing=:id')
+Updates listing from database with given id
+
+app.put('/api/dbbookeddates?listing=:id')
+Updates booked dates from database with given id
+
+### DELETE a listing
+app.delete('/api/dblistings?listing=:id')
+Deletes listing from database with given id
+
+app.delete('/api/dbbookeddates?listing=:id')
+Deletes booked dates from database with given id
