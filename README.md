@@ -40,30 +40,30 @@ npm run start (in a seperate bash window)
 
 ## RESTful CRUD API
 
-### CREATE a listing
-app.post('/api/dblistings')
+### CREATE
+POST '/api/listings'
 Creates a new listing with provided data
 
-app.post('/api/dbbookeddates')
-Creates booked dates data for listing
+POST '/api/reservations/:listingid'
+Creates reservations data for listing with provided data
 
-### READ/RETRIEVE a listing
-app.get('/api/dblistings?listing=:id')
+### READ/RETRIEVE
+GET '/api/listings/:id'
 Gets listing from database with given id
 
-app.get('/api/dbbookeddates?listing=:id')
-Gets booked dates from database with given id
+GET '/api/reservations/:listingid'
+Gets reservations from database with given listing id
 
-### UPDATE a listing
-app.put('/api/dblistings?listing=:id')
+### UPDATE
+PUT '/api/listings/:id'
 Updates listing from database with given id
 
-app.put('/api/dbbookeddates?listing=:id')
-Updates booked dates from database with given id
+PUT '/api/reservations/:listingid'
+Updates reservation from database with given listing id
 
-### DELETE a listing
-app.delete('/api/dblistings?listing=:id')
+### DELETE
+DELETE '/api/listings/:id'
 Deletes listing from database with given id
 
-app.delete('/api/dbbookeddates?listing=:id')
-Deletes booked dates from database with given id
+DELETE '/api/reservations/:listingid'
+Deletes reservation from database with given listing id
