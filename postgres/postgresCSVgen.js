@@ -12,11 +12,11 @@ const writerRes = csvWriter();
 // const client = new Client();
 // await client.connect();
 
-const ratPoint = 10;
-const lisPoint = 10;
-const userInfoPoint = 100;
-const transPoint = 100;
-const resPoint = 100;
+const ratPoint = 1000000;
+const lisPoint = 1000000;
+const userInfoPoint = 10000000;
+const transPoint = 10000000;
+const resPoint = 10000000;
 
 async function generate() {
     console.time('time');

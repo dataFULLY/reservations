@@ -5,7 +5,7 @@ const fs = require('fs');
 const writerRes = csvWriter();
 const writerLis = csvWriter();
 
-const lisPoint = 100;
+const lisPoint = 1000000;
 const resPoint = Math.floor(lisPoint*10);
 
 async function generate() {
