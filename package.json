@@ -8,7 +8,8 @@
     "node": ">=6.13.0"
   },
   "scripts": {
-    "mongoseed": "node ./mongo/seed.js",
+    "mongoseed": "node --max-old-space-size=8192 ./mongo/mongoCSVgen.js",
+    "postgresseed": "node --max-old-space-size=8192 ./postgres/postgresCSVgen.js",
     "databuild": "node ./database-sequelize/seed.js",
     "start": "nodemon ./server/server.js",
     "build": "npx webpack --watch",

@@ -2,29 +2,33 @@ const faker = require('faker');
 const csvWriter = require('csv-write-stream');
 const fs = require('fs');
 
-writer = csvWriter();
+const writerRat = csvWriter();
+const writerLis = csvWriter();
+const writerUser = csvWriter();
+const writerTrans = csvWriter();
+const writerRes = csvWriter();
 
 // const { Client } = require('pg');
 // const client = new Client();
 // await client.connect();
 
-const ratPoint = 1000000;
-const lisPoint = 1000000;
-const userInfoPoint = 10000000;
-const transPoint = 10000000;
-const resPoint = 10000000;
+const ratPoint = 10;
+const lisPoint = 10;
+const userInfoPoint = 100;
+const transPoint = 100;
+const resPoint = 100;
 
 async function generate() {
     console.time('time');
-    writer.pipe(fs.createWriteStream('postgresrating.csv'));
+    writerRat.pipe(fs.createWriteStream('postgresrating.csv'));
     for (let i = 1; i <= ratPoint; i++) {
         const id = i;
         const rating = faker.random.number({min: 0, max: 5});
-        const numberOfRatings = faker.random.number;
+        const numberOfRatings = faker.random.number();
 
         console.log('rating: ' + i);
 
-        const ratReady = writer.write({
+        const ratReady = writerRat.write({
             id,
             rating,
             numberOfRatings
@@ -32,15 +36,16 @@ async function generate() {
 
         if (!ratReady) {
             await new Promise((resolve) => {
-                writer.once('drain', resolve);
+                writerRat.once('drain', resolve);
             })
                 .catch((err) => {
                 console.log(err);
                 });
         };
     };
+    writerRat.end();
 
-    writer.pipe(fs.createWriteStream('postgreslisting.csv'));
+    writerLis.pipe(fs.createWriteStream('postgreslisting.csv'));
     for (let i = 1; i <= lisPoint; i++) {
         const id = i;
         const maxGuests = faker.random.number({min: 0, max: 10});
@@ -51,7 +56,7 @@ async function generate() {
         const occupancyFee = faker.random.number();
 
         console.log('list:' + i);
-        const lisReady = writer.write({
+        const lisReady = writerLis.write({
             id,
             maxGuests,
             maxInfants,
@@ -62,37 +67,39 @@ async function generate() {
         });
         if (!lisReady) {
             await new Promise((resolve) => {
-                writer.once('drain', resolve);
+                writerLis.once('drain', resolve);
             })
                 .catch((err) => {
                 console.log(err);
                 });
         };
     };
+    writerLis.end();
 
-    writer.pipe(fs.createWriteStream('postgresuserinfo.csv'));
+    writerUser.pipe(fs.createWriteStream('postgresuserinfo.csv'));
     for (let i = 1; i <= userInfoPoint; i++) {
         const id = i;
         const username = faker.name.firstName();
 
         console.log('user: ' + i);
 
-        const userInfoReady = writer.write({
+        const userInfoReady = writerUser.write({
             id,
             username
         });
 
         if (!userInfoReady) {
             await new Promise((resolve) => {
-                writer.once('drain', resolve);
+                writerUser.once('drain', resolve);
             })
                 .catch((err) => {
                 console.log(err);
                 });
         };
     };
+    writerUser.end();
 
-    writer.pipe(fs.createWriteStream('postgrestransactions.csv'));
+    writerTrans.pipe(fs.createWriteStream('postgrestransactions.csv'));
     for (let i = 1; i <= transPoint; i++) {
         const id = i;
         const userId = faker.random.number({min: 0, max: userInfoPoint});
@@ -100,7 +107,7 @@ async function generate() {
 
         console.log('transactions: ' + i);
 
-        const transReady = writer.write({
+        const transReady = writerTrans.write({
             id,
             userId,
             payment
@@ -108,15 +115,16 @@ async function generate() {
 
         if (!transReady) {
             await new Promise((resolve) => {
-                writer.once('drain', resolve);
+                writerTrans.once('drain', resolve);
             })
                 .catch((err) => {
                 console.log(err);
                 });
         };
     };
+    writerTrans.end();
 
-    writer.pipe(fs.createWriteStream('postgresreservations.csv'));
+    writerRes.pipe(fs.createWriteStream('postgresreservations.csv'));
     for (let i = 1; i <= resPoint; i++) {
         const id = i;
         const listingId = faker.random.number({min: 1, max: lisPoint});
@@ -129,7 +137,7 @@ async function generate() {
         const infant = faker.random.number({min: 0, max: 10});
 
         console.log('res:' + i);
-        const resReady = writer.write({
+        const resReady = writerRes.write({
             id,
             listingId,
             userId,
@@ -142,7 +150,7 @@ async function generate() {
         });
         if (!resReady) {
             await new Promise((resolve) => {
-                writer.once('drain', resolve);
+                writerRes.once('drain', resolve);
             })
                 .catch((err) => {
                 console.log(err);
@@ -150,6 +158,6 @@ async function generate() {
         };
     };
     console.timeEnd('time');
-    writer.end();
+    writerRes.end();
 };
 generate();

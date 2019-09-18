@@ -2,14 +2,15 @@ const csvWriter = require('csv-write-stream');
 const faker = require('faker');
 const fs = require('fs');
 
-writer = csvWriter();
+const writerRes = csvWriter();
+const writerLis = csvWriter();
 
-const lisPoint = 10000000;
+const lisPoint = 100;
 const resPoint = Math.floor(lisPoint*10);
 
 async function generate() {
     console.time('time');
-    writer.pipe(fs.createWriteStream('mongoreservation.csv'));
+    writerRes.pipe(fs.createWriteStream('mongoreservation.csv'));
     for (let i = 1; i <= resPoint; i++) {
         const id = i;
         const listingId = faker.random.number({min: 1, max: lisPoint});
@@ -22,7 +23,7 @@ async function generate() {
         const payment = faker.random.number();
 
         console.log('res:' + i);
-        const resReady = writer.write({
+        const resReady = writerRes.write({
             id,
             listingId,
             username,
@@ -35,15 +36,16 @@ async function generate() {
         });
         if (!resReady) {
             await new Promise((resolve) => {
-                writer.once('drain', resolve);
+                writerRes.once('drain', resolve);
             })
                 .catch((err) => {
                 console.log(err);
                 });
         };
     };
+    writerRes.end();
 
-    writer.pipe(fs.createWriteStream('mongolisting.csv'));
+    writerLis.pipe(fs.createWriteStream('mongolisting.csv'));
     for (let i = 1; i <= lisPoint; i++) {
         const id = i;
         const maxGuests = faker.random.number({min: 0, max: 10});
@@ -56,7 +58,7 @@ async function generate() {
         const numberOfRatings = faker.random.number();
 
         console.log('list:' + i);
-        const lisReady = writer.write({
+        const lisReady = writerLis.write({
             id,
             maxGuests,
             maxInfants,
@@ -69,15 +71,14 @@ async function generate() {
         });
         if (!lisReady) {
             await new Promise((resolve) => {
-                writer.once('drain', resolve);
+                writerLis.once('drain', resolve);
             })
                 .catch((err) => {
                 console.log(err);
                 });
         }
     };
-
     console.timeEnd('time');
-    writer.end();
+    writerLis.end();
 };
 generate();
