@@ -51,28 +51,3 @@ CREATE TABLE reservations (
     FOREIGN KEY (userId) REFERENCES userinfo(id) ON DELETE CASCADE,
     FOREIGN KEY (transactionId) REFERENCES transactions(id) ON DELETE CASCADE
 );
-
-
-
-
-MongoDB 'Schema'
-{
-    id,
-    maxGuests,
-    maxInfants,
-    chargePerNight,
-    cleaningFee,
-    serviceFee,
-    occupancyFee,
-    rating,
-    numberOfRatings,
-    reservations: [{
-        username,
-        checkinDate,
-        checkoutDate,
-        adult,
-        children,
-        infant,
-        payment
-    }]
-}
