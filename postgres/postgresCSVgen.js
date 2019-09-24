@@ -8,10 +8,6 @@ const writerUser = csvWriter();
 const writerTrans = csvWriter();
 const writerRes = csvWriter();
 
-// const { Client } = require('pg');
-// const client = new Client();
-// await client.connect();
-
 const ratPoint = 1000000;
 const lisPoint = 1000000;
 const userInfoPoint = 10000000;
@@ -54,6 +50,7 @@ async function generate() {
         const cleaningFee = faker.random.number();
         const serviceFee = faker.random.number();
         const occupancyFee = faker.random.number();
+        const ratingId = faker.random.number({min: 1});
 
         console.log('list:' + i);
         const lisReady = writerLis.write({
@@ -63,7 +60,8 @@ async function generate() {
             chargePerNight,
             cleaningFee,
             serviceFee,
-            occupancyFee
+            occupancyFee,
+            ratingId
         });
         if (!lisReady) {
             await new Promise((resolve) => {
@@ -102,7 +100,7 @@ async function generate() {
     writerTrans.pipe(fs.createWriteStream('postgrestransactions.csv'));
     for (let i = 1; i <= transPoint; i++) {
         const id = i;
-        const userId = faker.random.number({min: 0, max: userInfoPoint});
+        const userId = faker.random.number({min: 1, max: userInfoPoint});
         const payment = faker.random.number();
 
         console.log('transactions: ' + i);
@@ -126,11 +124,18 @@ async function generate() {
 
     writerRes.pipe(fs.createWriteStream('postgresreservations.csv'));
     for (let i = 1; i <= resPoint; i++) {
+        const inYear = faker.random.number({min: 2015, max: 2019});
+        const inMonth = faker.random.number({min: 1, max: 12});
+        const inDay = faker.random.number({min: 1, max: 28});
+        const outYear = faker.random.number({min: 2015, max: 2019});
+        const outMonth = faker.random.number({min: 1, max: 12});
+        const outDay = faker.random.number({min: 1, max: 28});
+
         const id = i;
         const listingId = faker.random.number({min: 1, max: lisPoint});
-        const userId = faker.random.number({min: 0, max: userInfoPoint});
-        const checkinDate = faker.date.past();
-        const checkoutDate = faker.date.past();
+        const userId = faker.random.number({min: 1, max: userInfoPoint});
+        const checkinDate = inYear.toString() + '-' + inMonth.toString() + '-' + inDay.toString();
+        const checkoutDate = outYear.toString() + '-' + outMonth.toString() + '-' + outDay.toString();
         const transactionId = faker.random.number({min: 1, max: transPoint});
         const adult = faker.random.number({min: 0, max: 10});
         const children = faker.random.number({min: 0, max: 10});

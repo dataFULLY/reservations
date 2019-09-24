@@ -12,11 +12,18 @@ async function generate() {
     console.time('time');
     writerRes.pipe(fs.createWriteStream('mongoreservation.csv'));
     for (let i = 1; i <= resPoint; i++) {
+        const inYear = faker.random.number({min: 2015, max: 2019});
+        const inMonth = faker.random.number({min: 1, max: 12});
+        const inDay = faker.random.number({min: 1, max: 28});
+        const outYear = faker.random.number({min: 2015, max: 2019});
+        const outMonth = faker.random.number({min: 1, max: 12});
+        const outDay = faker.random.number({min: 1, max: 28});
+
         const id = i;
         const listingId = faker.random.number({min: 1, max: lisPoint});
         const username = faker.name.firstName();
-        const checkinDate = faker.date.past();
-        const checkoutDate = faker.date.past();
+        const checkinDate = inYear.toString() + '-' + inMonth.toString() + '-' + inDay.toString();
+        const checkoutDate = outYear.toString() + '-' + outMonth.toString() + '-' + outDay.toString();
         const adult = faker.random.number({min: 0, max: 10});
         const children = faker.random.number({min: 0, max: 10});
         const infant = faker.random.number({min: 0, max: 10});
