@@ -1,12 +1,6 @@
--- DROP DATABASE IF EXISTS reservations;
-
--- CREATE DATABASE reservations;
-
--- USE reservations;
-
 CREATE TABLE rating (
     id INT NOT NULL,
-    rating DECIMAL(2,2),
+    rating INT NOT NULL,
     numberOfRatings INT NOT NULL,
     PRIMARY KEY (id)
 );
@@ -33,16 +27,16 @@ CREATE TABLE userinfo (
 CREATE TABLE transactions (
     id INT NOT NULL,
     userId INT NOT NULL,
-    payment decimal(2,2),
+    payment INT NOT NULL,
     PRIMARY KEY (id)
 );
 
 CREATE TABLE reservations (
     id INT NOT NULL,
-    checkinDate DATE NOT NULL,
-    checkoutDate DATE NOT NULL,
     listingId INT NOT NULL,
     userId INT NOT NULL,
+    checkinDate DATE NOT NULL,
+    checkoutDate DATE NOT NULL,
     transactionId INT NOT NULL,
     adult INT NOT NULL,
     children INT NOT NULL,

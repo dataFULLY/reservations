@@ -35,29 +35,6 @@ const resSchema = new mongoose.Schema({
 const Listing = mongoose.model('Listing', listingSchema);
 const Reservation = mongoose.model('Reservation', resSchema);
 
-// const getListings = (rid, cb) => {
-//   Listing.find({ restaurantId: rid }, (err, docs) => {
-//     if (err) {
-//       cb(err, null);
-//     } else {
-//       cb(null, docs);
-//     }
-//   });
-// };
-
-// const getReservations = (rid, cb) => {
-//     Reservation.find({ restaurantId: rid }, (err, docs) => {
-//       if (err) {
-//         cb(err, null);
-//       } else {
-//         cb(null, docs);
-//       }
-//     });
-//   };
-
-// module.exports.getListings = getListings;
-// module.exports.getReseverations = getReservations;
-
 module.exports = {
     db,
     Listing,
