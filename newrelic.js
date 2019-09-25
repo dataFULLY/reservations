@@ -9,7 +9,7 @@ exports.config = {
   /**
    * Array of application names.
    */
-  app_name: ['dataFULLY-reservations'],
+  app_name: ['dataFULLY-reservations-aws'],
   /**
    * Your New Relic license key.
    */
