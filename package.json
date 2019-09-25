@@ -8,9 +8,11 @@
     "node": ">=6.13.0"
   },
   "scripts": {
+    "mongoseed": "node --max-old-space-size=8192 ./mongo/mongoCSVgen.js",
+    "postgresseed": "node --max-old-space-size=8192 ./postgres/postgresCSVgen.js",
     "databuild": "node ./database-sequelize/seed.js",
     "start": "nodemon ./server/server.js",
-    "build": "npx webpack --watch",
+    "build": "npx webpack --watch -d",
     "test": "jest --ci --runInBand --reporters=default --reporters=jest-junit"
   },
   "dependencies": {
@@ -20,11 +22,16 @@
     "body-parser": "^1.19.0",
     "chai": "^4.2.0",
     "cors": "^2.8.5",
+    "csv-write-stream": "^2.0.0",
     "express": "^4.17.1",
+    "faker": "^4.1.0",
     "jest-junit": "^8.0.0",
+    "mongoose": "^5.7.1",
     "morgan": "^1.9.1",
     "mysql2": "^1.6.5",
+    "newrelic": "^5.11.0",
     "nodemon": "^1.19.1",
+    "pg": "^7.12.1",
     "prop-types": "^15.7.2",
     "react": "^16.9.0",
     "react-dom": "^16.9.0",

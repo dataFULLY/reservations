@@ -2,7 +2,7 @@
 /* eslint-disable no-plusplus */
 const Sequelize = require('sequelize');
 
-const sequelize = new Sequelize('reservations', 'root', '', { dialect: 'mysql' });
+const sequelize = new Sequelize('reservations', 'root', '', { dialect: 'postgres' });
 
 const Listing = sequelize.define('listing', {
   maxGuests: {

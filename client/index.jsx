@@ -8,7 +8,7 @@ import appActions from './actions/App';
 
 class Reservations extends React.Component {
   componentDidMount() {
-    axios.get('http://localhost:3001/api/dblistings', {
+    axios.get('http://localhost:3030/api/listings/:id/reservations/', {
       params: {
         listing: document.URL.split('/').reverse()[1],
       },
@@ -17,7 +17,7 @@ class Reservations extends React.Component {
         store.dispatch(appActions.changeListing(listing.data));
       })
       .then(() => {
-        axios.get('http://localhost:3001/api/dbbookeddates', {
+        axios.get('http://localhost:3030/api/listings/:id/reservations/', {
           params: {
             listing: document.URL.split('/').reverse()[1],
           },

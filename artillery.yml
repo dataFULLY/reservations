@@ -1,0 +1,12 @@
+config:
+  target: ''
+  phases:
+    - duration: 60
+      arrivalRate: 100
+  defaults:
+    headers:
+      x-my-service-auth: ''
+scenarios:
+  - flow:
+    - get:
+        url: "/api/listings/{{$randomNumber(1,10000)}}/reservations"

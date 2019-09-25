@@ -1,2 +1,13 @@
 /node_modules
 /coverage
+
+mongolisting.csv
+mongoreservation.csv
+postgreslisting.csv
+postgresrating.csv
+postgresreservations.csv
+postgrestransactions.csv
+postgresuserinfo.csv
+
+newrelic_agent.log
+postgressdc.pem
