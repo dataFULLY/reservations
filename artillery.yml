@@ -1,11 +1,11 @@
 config:
-  target: 'http://localhost:3030'
+  target: ''
   phases:
     - duration: 60
       arrivalRate: 100
   defaults:
     headers:
-      x-my-service-auth: '987401838271002188298567'
+      x-my-service-auth: ''
 scenarios:
   - flow:
     - get:
